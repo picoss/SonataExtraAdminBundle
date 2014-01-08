@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="PureProjectBundle.en.xlf">
+        <body>
+            <trans-unit id="action_move_top">
+                <source>action_move_top</source>
+                <target>Top</target>
+            </trans-unit>
+            <trans-unit id="action_move_up">
+                <source>action_move_up</source>
+                <target>Up</target>
+            </trans-unit>
+            <trans-unit id="action_move_down">
+                <source>action_move_down</source>
+                <target>Down</target>
+            </trans-unit>
+            <trans-unit id="action_move_bottom">
+                <source>action_move_bottom</source>
+                <target>Bottom</target>
+            </trans-unit>
+
+            <trans-unit id="flash_position_updated_successfully">
+                <source>flash_position_updated_successfully</source>
+                <target>Postion updated successfully</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
