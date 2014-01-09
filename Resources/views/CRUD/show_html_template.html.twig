@@ -1,0 +1,8 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field%}
+{% spaceless %}
+    {% set template = field_description.options.html is defined ? field_description.options.html : '{% if field_description.options.safe %}{{ value|raw }}{% else %}{{ value|nl2br }}{% endif %}' %}
+    {%  include template_from_string(template) %}
+{% endspaceless %}
+{% endblock %}

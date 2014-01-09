@@ -1,0 +1,6 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+{% block field %}
+    {% if value %}
+        <img src="{% if field_description.options.prefix is defined %}{{ field_description.options.prefix }}{% endif %}{{ value }}" />
+    {% endif %}
+{% endblock %}

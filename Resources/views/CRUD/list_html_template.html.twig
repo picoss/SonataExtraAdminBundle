@@ -1,0 +1,8 @@
+{% extends admin.getTemplate('base_list_field') %}
+
+{% block field%}
+{% spaceless %}
+    {% set template = field_description.options.html is defined ? field_description.options.html : '{{ value }}' %}
+    {%  include template_from_string(template) %}
+{% endspaceless %}
+{% endblock %}

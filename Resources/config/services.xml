@@ -12,5 +12,9 @@
         <service id="picoss.sonataextraadmin.handler.sortable" class="%picoss.sonataextraadmin.handler.sortable.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
+
+        <service id="picoss.sonataextraadmin.twig.extension.stringloader" class="Twig_Extension_StringLoader">
+            <tag name="twig.extension" />
+        </service>
     </services>
 </container>
