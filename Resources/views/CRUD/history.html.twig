@@ -1,0 +1,62 @@
+{% extends 'SonataAdminBundle:CRUD:base_history.html.twig' %}
+
+{% block content %}
+    <div class="span5">
+        <table class="table table-bordered table-stripped" id="revisions">
+            <thead>
+            <tr>
+                <th>{{ "td_revision"|trans({}, 'SonataAdminBundle') }}</th>
+                <th>{{ "td_timestamp"|trans({}, 'SonataAdminBundle') }}</th>
+                <th>{{ "td_username"|trans({}, 'SonataAdminBundle') }}</th>
+                <th>{{ "td_action"|trans({}, 'SonataAdminBundle') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for revision in revisions %}
+                <tr>
+                    <td>{{ revision.version}}</td>
+                    <td>{% include admin.getTemplate('history_revision_timestamp') %}</td>
+                    <td>{{ revision.username}}</td>
+                    <td>
+                        <a href="{{ admin.generateObjectUrl('history_view_revision', object, {'revision': revision.version }) }}" class="btn btn-small revision-link" rel="{{ revision.version }}">
+                            <i class="icon-zoom-in"></i>
+                            {{ "label_view_revision"|trans({}, 'SonataAdminBundle') }}
+                        </a>
+                        <a href="{{ admin.generateObjectUrl('history_revert', object, {'revision': revision.version }) }}" class="btn btn-small" rel="{{ revision.version }}">
+                            <i class="icon-random"></i>
+                            {{ "label_revert_revision"|trans({}, 'PicossSonataExtraAdminBundle') }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="revision-detail" class="span7 revision-detail">
+
+    </div>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            jQuery('a.revision-link').bind('click', function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+
+                jQuery('#revision-detail').html('');
+                jQuery('table#revisions tbody tr').removeClass('current');
+                jQuery(this).parent('').removeClass('current');
+
+                jQuery.ajax({
+                    url: jQuery(this).attr('href'),
+                    dataType: 'html',
+                    success: function(data) {
+                        jQuery('#revision-detail').html(data);
+                    }
+                });
+
+                return false;
+            })
+        });
+    </script>
+{% endblock %}

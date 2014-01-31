@@ -12,19 +12,13 @@ class SonataTemplatesPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $templates = $container->getParameter('sonata_doctrine_orm_admin.templates');
+        $extraTemplates = $container->getParameter('picoss_sonata_extra_admin.templates');
 
-        $templates['types']['list'] = array_merge($templates['types']['list'], array(
-            'image'         => 'PicossSonataExtraAdminBundle:CRUD:list_image.html.twig',
-            'html_template' => 'PicossSonataExtraAdminBundle:CRUD:list_html_template.html.twig',
-        ));
+        $doctrineTemplates = $container->getParameter('sonata_doctrine_orm_admin.templates');
 
-        $templates['types']['show'] = array_merge($templates['types']['show'], array(
-            'image'         => 'PicossSonataExtraAdminBundle:CRUD:show_image.html.twig',
-            'html_template' => 'PicossSonataExtraAdminBundle:CRUD:show_html_template.html.twig',
-        ));
+        $templates = array_merge_recursive($extraTemplates, $doctrineTemplates);
 
-        $container->setParameter('sonata_doctrine_orm_admin.templates', $templates);
+        $container->setParameter('sonata_doctrine_orm_admin.templates', array_merge_recursive($extraTemplates, $doctrineTemplates));
 
         // define the templates
         $container->getDefinition('sonata.admin.builder.orm_list')
@@ -32,5 +26,16 @@ class SonataTemplatesPass implements CompilerPassInterface
 
         $container->getDefinition('sonata.admin.builder.orm_show')
             ->replaceArgument(1, $templates['types']['show']);
+
+        foreach ($container->findTaggedServiceIds('sonata.admin') as $id => $tags) {
+            foreach ($tags as $attributes) {
+                $definition = $container->getDefinition($id);
+                $definition->addMethodCall('setTemplate', array('history_revert', $extraTemplates['history_revert']));
+                $definition->addMethodCall('setTemplate', array('trash', $extraTemplates['trash']));
+                $definition->addMethodCall('setTemplate', array('untrash', $extraTemplates['untrash']));
+                $definition->addMethodCall('setTemplate', array('inner_trash_list_row', $extraTemplates['inner_trash_list_row']));
+                $definition->addMethodCall('setTemplate', array('list', $extraTemplates['list']));
+            }
+        }
     }
 }

@@ -1,0 +1,71 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+
+{% block actions %}
+    <div class="sonata-actions btn-group">
+        {% include 'SonataAdminBundle:Button:list_button.html.twig' %}
+    </div>
+{% endblock %}
+
+
+{% block table_footer %}
+    <tr>
+        <th colspan="{{ admin.list.elements|length - (app.request.isXmlHttpRequest ? (admin.list.has('_action') + admin.list.has('batch')) : 0) }}">
+            <div class="form-inline">
+                {% if not app.request.isXmlHttpRequest %}
+                    <div class="pull-right">
+                        {% if admin.hasRoute('export') and admin.isGranted("EXPORT") and admin.getExportFormats()|length %}
+                            {{ "label_export_download"|trans({}, "SonataAdminBundle") }}
+                            {% for format in admin.getExportFormats() %}
+                                <a href="{{ admin.generateUrl('export', admin.modelmanager.paginationparameters(admin.datagrid, 0) + {'format' : format}) }}">{{ format }}</a>{% if not loop.last %},{% endif %}
+                            {% endfor %}
+
+                            &nbsp;-&nbsp;
+                        {% endif %}
+
+                        {% block pager_results %}
+                            {% include admin.getTemplate('pager_results') %}
+                        {% endblock %}
+                    </div>
+                {% endif %}
+            </div>
+        </th>
+    </tr>
+
+    {% block pager_links %}
+        {% if admin.datagrid.pager.haveToPaginate() %}
+            {% include admin.getTemplate('pager_links') %}
+        {% endif %}
+    {% endblock %}
+
+{% endblock %}
+
+{% block list_table %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('table.table tbody tr td>a').click(function() { return false; })
+    </script>
+{% endblock %}
+
+{% block table_body %}
+    <tbody>
+    {% for object in admin.datagrid.results %}
+        <tr>
+            {% include admin.getTemplate('inner_trash_list_row') %}
+        </tr>
+    {% endfor %}
+    </tbody>
+{% endblock %}
+
+{% block list_filters %}
+{% endblock %}

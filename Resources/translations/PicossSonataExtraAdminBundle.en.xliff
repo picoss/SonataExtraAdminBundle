@@ -23,6 +23,75 @@
                 <source>flash_position_updated_successfully</source>
                 <target>Postion updated successfully</target>
             </trans-unit>
+
+            <trans-unit id="label_revert_revision">
+                <source>label_revert_revision</source>
+                <target>Revert</target>
+            </trans-unit>
+
+            <trans-unit id="title_history_revert">
+                <source>title_history_revert</source>
+                <target>Confirm revert</target>
+            </trans-unit>
+            <trans-unit id="message_history_revert_confirmation">
+                <source>message_history_revert_confirmation</source>
+                <target>Are you sure you want to revert the selected element?</target>
+            </trans-unit>
+            <trans-unit id="btn_history_revert">
+                <source>btn_history_revert</source>
+                <target>Yes, revert</target>
+            </trans-unit>
+            <trans-unit id="history_revert_or">
+                <source>history_revert_or</source>
+                <target>or</target>
+            </trans-unit>
+
+            <trans-unit id="link_action_history_list">
+                <source>link_action_history_list</source>
+                <target>Back to history</target>
+            </trans-unit>
+
+            <trans-unit id="flash_history_revert_successfull">
+                <source>flash_history_revert_successfull</source>
+                <target>An Error has occurred during item revert.</target>
+            </trans-unit>
+            <trans-unit id="flash_history_revert_error">
+                <source>flash_history_revert_error</source>
+                <target>Item has been reverted successfully.</target>
+            </trans-unit>
+
+            <trans-unit id="link_action_trash">
+                <source>link_action_trash</source>
+                <target>Trash</target>
+            </trans-unit>
+            <trans-unit id="action_restore">
+                <source>action_restore</source>
+                <target>Restore</target>
+            </trans-unit>
+            <trans-unit id="title_restore">
+                <source>title_restore</source>
+                <target>Confirm restoration</target>
+            </trans-unit>
+            <trans-unit id="message_restore_confirmation">
+                <source>message_restore_confirmation</source>
+                <target>Are you sure you want to restore the selected element?</target>
+            </trans-unit>
+            <trans-unit id="btn_restore">
+                <source>btn_restore</source>
+                <target>Yes, restore</target>
+            </trans-unit>
+            <trans-unit id="restore_or">
+                <source>restore_or</source>
+                <target>or</target>
+            </trans-unit>
+            <trans-unit id="flash_untrash_successfull">
+                <source>flash_untrash_successfull</source>
+                <target>Item has been restored successfully.</target>
+            </trans-unit>
+            <trans-unit id="flash_untrash_error">
+                <source>flash_untrash_error</source>
+                <target>An Error has occurred during item restoration.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

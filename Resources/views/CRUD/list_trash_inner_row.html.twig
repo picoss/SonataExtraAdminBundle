@@ -1,0 +1,17 @@
+
+{% for field_description in admin.list.elements %}
+    {% if field_description.name == '_action' %}
+        {% if admin.isGranted('EDIT', object) and admin.hasRoute('edit') %}
+            <td class="sonata-ba-list-field sonata-ba-list-field-{{ field_description.type }}" objectId="{{ admin.id(object) }}">
+                <div class="btn-group">
+                    <a href="{{ admin.generateObjectUrl('untrash', object) }}" class="btn edit_link btn-small" title="{{ 'action_untrash'|trans({}, 'PicossSonataExtraAdminBundle') }}">
+                        <i class="icon-random"></i>
+                        {{ 'action_restore'|trans({}, 'PicossSonataExtraAdminBundle') }}
+                    </a>
+                </div>
+            </td>
+        {% endif %}
+    {% else %}
+        {{ object|render_list_element(field_description) }}
+    {% endif %}
+{% endfor %}

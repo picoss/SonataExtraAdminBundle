@@ -1,0 +1,8 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+
+{% block actions %}
+    <div class="sonata-actions btn-group">
+        {% include 'PicossSonataExtraAdminBundle:Button:trash_button.html.twig' %}
+        {% include 'SonataAdminBundle:Core:create_button.html.twig' %}
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends base_template %}
+
+{% block actions %}
+    <div class="sonata-actions btn-group">
+        {% include 'SonataAdminBundle:Button:edit_button.html.twig' %}
+        {% include 'SonataAdminBundle:Button:create_button.html.twig' %}
+        {% include 'SonataAdminBundle:Button:list_button.html.twig' %}
+    </div>
+{% endblock %}
+
+{#{% block side_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}{% endblock %}#}
+
+{% block content %}
+    <div class="sonata-ba-delete">
+
+        <h1>{{ 'title_history_revert'|trans({}, 'PicossSonataExtraAdminBundle') }}</h1>
+
+        {{ 'message_history_revert_confirmation'|trans({'%object%': admin.toString(object)}, 'PicossSonataExtraAdminBundle') }}
+
+        <div class="well well-small form-actions">
+            <form method="POST" action="{{ admin.generateObjectUrl('history_revert', object, {'revision': revision}) }}">
+                <input type="hidden" name="_sonata_csrf_token" value="{{ csrf_token }}" />
+
+                <button type="submit" class="btn btn-danger"><i class="icon-random icon-white"></i> {{ 'btn_history_revert'|trans({}, 'PicossSonataExtraAdminBundle') }}</button>
+                {% if admin.hasRoute('edit') and admin.isGranted('EDIT', object) %}
+                    {{ 'history_revert_or'|trans({}, 'PicossSonataExtraAdminBundle') }}
+
+                    <a class="btn btn-success" href="{{ admin.generateObjectUrl('history', object) }}">
+                        <i class="icon-white icon-edit"></i>
+                        {{ 'link_action_history_list'|trans({}, 'PicossSonataExtraAdminBundle') }}</a>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+{% block field %}
+    {% spaceless %}
+        {% set styles = ['info', 'success', 'warning', 'danger'] %}
+        {% set style = field_description.options.style is defined and field_description.options.style in styles ? ' progress-' ~ field_description.options.style : '' %}
+        {% set striped = field_description.options.striped is defined and field_description.options.striped == true ? ' progress-striped' : '' %}
+        {% set suffix = field_description.options.suffix is defined ? field_description.options.suffix : '' %}
+        <div class="progress{{ style }}{{ striped }}">
+            <div class="bar" style="width: {{ value ?: 0 }}%;"><span>{{ value ?: 0 }}{{ suffix }}</span></div>
+        </div>
+    {% endspaceless %}
+{% endblock %}
