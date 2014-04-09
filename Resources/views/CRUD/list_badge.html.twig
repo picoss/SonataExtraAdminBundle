@@ -2,8 +2,6 @@
 
 {% block field%}
     {% spaceless %}
-        {% set styles = ['success', 'warning', 'important', 'info', 'inverse'] %}
-        {% set style = field_description.options.style is defined and field_description.options.style in styles ? ' label-' ~ field_description.options.style : '' %}
-        <span class="badge{{ style }}">{{ value }}</span>
+        <span class="badge">{{ value }}</span>
     {% endspaceless %}
 {% endblock %}

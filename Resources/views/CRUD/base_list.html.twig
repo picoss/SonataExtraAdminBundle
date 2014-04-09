@@ -1,8 +1,6 @@
 {% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
 
 {% block actions %}
-    <div class="pull-right sonata-actions">
-        {% include 'PicossSonataExtraAdminBundle:Button:trash_button.html.twig' %}
-        {% include 'SonataAdminBundle:Core:create_button.html.twig' %}
-    </div>
+    <li>{% include 'PicossSonataExtraAdminBundle:Button:trash_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Core:create_button.html.twig' %}</li>
 {% endblock %}

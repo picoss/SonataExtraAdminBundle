@@ -30,7 +30,9 @@ class SonataTemplatesPass implements CompilerPassInterface
         foreach ($container->findTaggedServiceIds('sonata.admin') as $id => $tags) {
             foreach ($tags as $attributes) {
                 $definition = $container->getDefinition($id);
+                $definition->addMethodCall('setTemplate', array('history', $extraTemplates['history']));
                 $definition->addMethodCall('setTemplate', array('history_revert', $extraTemplates['history_revert']));
+                $definition->addMethodCall('setTemplate', array('history_revision_timestamp', $extraTemplates['history_revision_timestamp']));
                 $definition->addMethodCall('setTemplate', array('trash', $extraTemplates['trash']));
                 $definition->addMethodCall('setTemplate', array('untrash', $extraTemplates['untrash']));
                 $definition->addMethodCall('setTemplate', array('inner_trash_list_row', $extraTemplates['inner_trash_list_row']));

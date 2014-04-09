@@ -1,5 +1,5 @@
 {% if admin.hasRoute('trash') and admin.isGranted('LIST')%}
-    <a class="btn sonata-action-element" href="{{ admin.generateUrl('trash') }}">
-        <i class="icon-trash"></i>
+    <a class="sonata-action-element" href="{{ admin.generateUrl('trash') }}">
+        <i class="fa fa-trash-o"></i>
         {{ 'link_action_trash'|trans({}, 'PicossSonataExtraAdminBundle') }}</a>
 {% endif %}

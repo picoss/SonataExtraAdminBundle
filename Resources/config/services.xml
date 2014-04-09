@@ -23,14 +23,14 @@
             <argument type="service" id="picoss.sonataextraadmin.trash.manager"/>
         </service>
 
-        <!-- trash manager -->
-        <service id="picoss.sonataextraadmin.trash.manager" class="Picoss\SonataExtraAdminBundle\Model\TrashManager">
-            <argument type="service" id="service_container" />
-        </service>
-
         <service id="picoss.sonata.extra.admin.audit.orm.reader" class="Picoss\SonataExtraAdminBundle\Model\AuditReader">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="stof_doctrine_extensions.listener.loggable" />
+        </service>
+
+        <!-- trash manager -->
+        <service id="picoss.sonataextraadmin.trash.manager" class="Picoss\SonataExtraAdminBundle\Model\TrashManager">
+            <argument type="service" id="service_container" />
         </service>
 
         <service id="picoss.sonata.extra.admin.trash.orm.reader" class="Picoss\SonataExtraAdminBundle\Model\TrashReader">

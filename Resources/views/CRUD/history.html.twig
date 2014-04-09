@@ -1,8 +1,8 @@
 {% extends 'SonataAdminBundle:CRUD:base_history.html.twig' %}
 
 {% block content %}
-    <div class="span5">
-        <table class="table table-bordered table-stripped" id="revisions">
+    <div class="col-md-5">
+        <table class="table" id="revisions">
             <thead>
             <tr>
                 <th>{{ "td_revision"|trans({}, 'SonataAdminBundle') }}</th>
@@ -18,13 +18,12 @@
                     <td>{% include admin.getTemplate('history_revision_timestamp') %}</td>
                     <td>{{ revision.username}}</td>
                     <td>
-                        <a href="{{ admin.generateObjectUrl('history_view_revision', object, {'revision': revision.version }) }}" class="btn btn-small revision-link" rel="{{ revision.version }}">
-                            <i class="icon-zoom-in"></i>
-                            {{ "label_view_revision"|trans({}, 'SonataAdminBundle') }}
+                        <a href="{{ admin.generateObjectUrl('history_view_revision', object, {'revision': revision.version }) }}" class="btn btn-small btn-info revision-link" data-loading-text="<i class='fa fa-refresh fa-spin'></i> {{ "label_view_revision"|trans({}, 'SonataAdminBundle') }}" rel="{{ revision.version }}">
+                            <i class="fa fa-search-plus"></i> {{ "label_view_revision"|trans({}, 'SonataAdminBundle') }}
                         </a>
-                        <a href="{{ admin.generateObjectUrl('history_revert', object, {'revision': revision.version }) }}" class="btn btn-small" rel="{{ revision.version }}">
-                            <i class="icon-random"></i>
-                            {{ "label_revert_revision"|trans({}, 'PicossSonataExtraAdminBundle') }}
+
+                        <a href="{{ admin.generateObjectUrl('history_revert', object, {'revision': revision.version }) }}" class="btn btn-small btn-success" rel="{{ revision.version }}">
+                            <i class="fa fa-random"></i> {{ "label_revert_revision"|trans({}, 'PicossSonataExtraAdminBundle') }}
                         </a>
                     </td>
                 </tr>
@@ -32,18 +31,19 @@
             </tbody>
         </table>
     </div>
-    <div id="revision-detail" class="span7 revision-detail">
+    <div id="revision-detail" class="col-md-7 revision-detail">
 
     </div>
 
-    <script type="text/javascript">
+    <script>
         jQuery(document).ready(function() {
-
             jQuery('a.revision-link').bind('click', function(event) {
                 event.stopPropagation();
                 event.preventDefault();
 
-                jQuery('#revision-detail').html('');
+                var btn = jQuery(this);
+                btn.button('loading');
+
                 jQuery('table#revisions tbody tr').removeClass('current');
                 jQuery(this).parent('').removeClass('current');
 
@@ -51,7 +51,11 @@
                     url: jQuery(this).attr('href'),
                     dataType: 'html',
                     success: function(data) {
-                        jQuery('#revision-detail').html(data);
+                        jQuery('#revision-detail').fadeOut('slow', function() {
+                            jQuery('#revision-detail').html(data);
+                            jQuery('#revision-detail').fadeIn('slow');
+                            btn.button('reset');
+                        });
                     }
                 });
 

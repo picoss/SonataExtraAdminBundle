@@ -53,11 +53,11 @@
 
             <trans-unit id="flash_history_revert_successfull">
                 <source>flash_history_revert_successfull</source>
-                <target>An Error has occurred during item revert.</target>
+                <target>Item has been reverted successfully.</target>
             </trans-unit>
             <trans-unit id="flash_history_revert_error">
                 <source>flash_history_revert_error</source>
-                <target>Item has been reverted successfully.</target>
+                <target>An Error has occurred during item revert.</target>
             </trans-unit>
 
             <trans-unit id="link_action_trash">

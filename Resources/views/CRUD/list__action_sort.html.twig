@@ -1,8 +1,8 @@
 {% set moves = [
-    {'way': constant('Picoss\\SonataExtraAdminBundle\\Handler\\SortableHandler::MOVE_TOP'), 'enable': object.position > 0, 'icon': 'icon-arrow-up'},
-    {'way': constant('Picoss\\SonataExtraAdminBundle\\Handler\\SortableHandler::MOVE_UP'), 'enable': object.position > 0, 'icon': 'icon-chevron-up'},
-    {'way': constant('Picoss\\SonataExtraAdminBundle\\Handler\\SortableHandler::MOVE_DOWN'), 'enable': object.position < admin.lastPosition, 'icon': 'icon-chevron-down'},
-    {'way': constant('Picoss\\SonataExtraAdminBundle\\Handler\\SortableHandler::MOVE_BOTTOM'), 'enable': object.position < admin.lastPosition, 'icon': 'icon-arrow-down'}
+    {'way': constant('Picoss\\SonataExtraAdminBundle\\Handler\\SortableHandler::MOVE_TOP'), 'enable': object.position > 0, 'icon': 'glyphicon-arrow-up'},
+    {'way': constant('Picoss\\SonataExtraAdminBundle\\Handler\\SortableHandler::MOVE_UP'), 'enable': object.position > 0, 'icon': 'glyphicon-chevron-up'},
+    {'way': constant('Picoss\\SonataExtraAdminBundle\\Handler\\SortableHandler::MOVE_DOWN'), 'enable': object.position < admin.lastPosition, 'icon': 'glyphicon-chevron-down'},
+    {'way': constant('Picoss\\SonataExtraAdminBundle\\Handler\\SortableHandler::MOVE_BOTTOM'), 'enable': object.position < admin.lastPosition, 'icon': 'glyphicon-arrow-down'}
 ] %}
 
 {% for move in moves %}
@@ -14,12 +14,12 @@
     {% else %}
     <a class="btn btn-small" href="{{ admin.generateObjectUrl('move', object, {'position': move.way}) }}" title="{{ label }}">
     {% endif %}
-        <i class="{{ move.icon }}"></i>
+        <i class="glyphicon {{ move.icon }}"></i>
         {% if actions.hide_label is defined and actions.hide_label == false %}{{ label }}{% endif %}
     {% if move.enable == false %}
-        </span>
+    </span>
     {% else %}
-        </a>
+    </a>
     {% endif %}
     {% endspaceless %}
 {% endfor %}

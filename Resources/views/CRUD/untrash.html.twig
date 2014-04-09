@@ -1,44 +1,35 @@
-{#
-
-This file is part of the Sonata package.
-
-(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
-
-For the full copyright and license information, please view the LICENSE
-file that was distributed with this source code.
-
-#}
-
 {% extends base_template %}
 
 {% block actions %}
-    <div class="sonata-actions btn-group">
-        {% include 'SonataAdminBundle:Button:list_button.html.twig' %}
-    </div>
+    <li>{% include 'SonataAdminBundle:Button:list_button.html.twig' %}</li>
 {% endblock %}
 
-{#{% block side_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}{% endblock %}#}
+{% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}{% endblock %}
 
 {% block content %}
     <div class="sonata-ba-delete">
 
-        <h1>{{ 'title_restore'|trans({}, 'PicossSonataExtraAdminBundle') }}</h1>
+        <div class="box box-danger">
+            <div class="box-header">
+                <h3 class="box-title">{{ 'title_restore'|trans({}, 'PicossSonataExtraAdminBundle') }}</h3>
+            </div>
+            <div class="box-body">
+                {{ 'message_restore_confirmation'|trans({'%object%': admin.toString(object)}, 'PicossSonataExtraAdminBundle') }}
+            </div>
+            <div class="box-footer clearfix">
+                <form method="POST" action="{{ admin.generateObjectUrl('untrash', object) }}">
+                    <input type="hidden" name="_sonata_csrf_token" value="{{ csrf_token }}">
 
-        {{ 'message_restore_confirmation'|trans({'%object%': admin.toString(object)}, 'PicossSonataExtraAdminBundle') }}
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-reply fa-lg"></i> {{ 'btn_restore'|trans({}, 'PicossSonataExtraAdminBundle') }}</button>
+                    {% if admin.hasRoute('delete') and admin.isGranted('DELETE', object) %}
+                        {{ 'restore_or'|trans({}, 'PicossSonataExtraAdminBundle') }}
 
-        <div class="well well-small form-actions">
-            <form method="POST" action="{{ admin.generateObjectUrl('untrash', object) }}">
-                <input type="hidden" name="_sonata_csrf_token" value="{{ csrf_token }}" />
-
-                <button type="submit" class="btn btn-danger"><i class="icon-random icon-white"></i> {{ 'btn_restore'|trans({}, 'PicossSonataExtraAdminBundle') }}</button>
-                {% if admin.hasRoute('delete') and admin.isGranted('DELETE', object) %}
-                    {{ 'restore_or'|trans({}, 'PicossSonataExtraAdminBundle') }}
-
-                    <a class="btn btn-success" href="{{ admin.generateUrl('trash') }}">
-                        <i class="icon-white icon-list"></i>
-                        {{ 'link_action_trash'|trans({}, 'PicossSonataExtraAdminBundle') }}</a>
-                {% endif %}
-            </form>
+                        <a class="btn btn-success" href="{{ admin.generateUrl('trash') }}">
+                            <i class="glyphicon glyphicon-list"></i>
+                            {{ 'link_action_trash'|trans({}, 'PicossSonataExtraAdminBundle') }}</a>
+                    {% endif %}
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}
