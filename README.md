@@ -11,6 +11,10 @@ Features include:
 - Audit manager using Gedmo Loggable
 - Trash manager using Gedmo SoftDeleteable
 
+[![Build Status](https://travis-ci.org/picoss/SonataExtraAdminBundle.svg?branch=master)](https://travis-ci.org/picoss/SonataExtraAdminBundle)
+[![Total Downloads](https://poser.pugx.org/picoss/sonata-extra-admin-bundle/downloads.png)](https://packagist.org/packages/picoss/sonata-extra-admin-bundle)
+[![Latest Stable Version](https://poser.pugx.org/picoss/sonata-extra-admin-bundle/v/stable.png)](https://packagist.org/packages/picoss/sonata-extra-admin-bundle)
+
 Documentation
 -------------
 
