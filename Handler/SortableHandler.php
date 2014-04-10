@@ -61,7 +61,7 @@ class SortableHandler
                 }
                 break;
         }
-        return $position;
+        return is_numeric($position) ? $position : $object->getPosition();
     }
 
     /**

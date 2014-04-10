@@ -13,8 +13,6 @@ class SortableRepository extends BaseSortableRepository
             ->select('MAX(n.' . $this->config['position'] . ')')
             ->from($this->config['useObjectClass'], 'n');
 
-        var_dump($this->config['groups']);
-
         if (isset($this->config['groups']) && count($this->config['groups']) > 0) {
             $i = 1;
             $qb->where('1 = 1');
