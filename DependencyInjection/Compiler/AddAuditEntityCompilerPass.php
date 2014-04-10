@@ -14,13 +14,14 @@ class AddAuditEntityCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        $auditedEntities = array();
         foreach ($container->findTaggedServiceIds('sonata.admin') as $id => $attributes) {
 
             if ($attributes[0]['manager_type'] != 'orm') {
                 continue;
             }
 
-            if (isset($attributes[0]['audit']) && $attributes[0]['audit'] == false) {
+            if (!isset($attributes[0]['audit']) || $attributes[0]['audit'] == false) {
                 continue;
             }
 
