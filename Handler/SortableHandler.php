@@ -70,9 +70,12 @@ class SortableHandler
      * @param $entity
      * @return int
      */
-    public function getLastPosition($entity)
+    public function getLastPosition($object)
     {
-        $query = $this->em->createQuery('SELECT MAX(e.position) FROM ' . $entity . ' e');
-        return $query->getSingleScalarResult();
+        $repository = $this->em->getRepository(get_class($object));
+        return $repository->getMaxPosition($object);
+
+//        $query = $this->em->createQuery('SELECT MAX(e.position) FROM ' . $object . ' e');
+//        return $query->getSingleScalarResult();
     }
 }

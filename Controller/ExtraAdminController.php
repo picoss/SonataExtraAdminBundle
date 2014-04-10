@@ -19,7 +19,7 @@ class ExtraAdminController extends CRUDController
         $object = $this->admin->getObject($id);
 
         $sortableHandler = $this->get('picoss.sonataextraadmin.handler.sortable');
-        $lastPosition = $sortableHandler->getLastPosition(get_class($object));
+        $lastPosition = $sortableHandler->getLastPosition($object);
         $position = $sortableHandler->getPosition($object, $position, $lastPosition);
 
         $object->setPosition($position);
