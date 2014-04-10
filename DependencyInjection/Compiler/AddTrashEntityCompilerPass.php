@@ -14,13 +14,14 @@ class AddTrashEntityCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        $trashedEntities = array();
         foreach ($container->findTaggedServiceIds('sonata.admin') as $id => $attributes) {
 
             if ($attributes[0]['manager_type'] != 'orm') {
                 continue;
             }
 
-            if (isset($attributes[0]['trash']) && $attributes[0]['trash'] == false) {
+            if (!isset($attributes[0]['trash']) || $attributes[0]['trash'] == false) {
                 continue;
             }
 
