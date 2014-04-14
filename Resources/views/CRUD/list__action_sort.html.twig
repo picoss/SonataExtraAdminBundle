@@ -9,7 +9,7 @@
     {% spaceless %}
     {% set label = ('action_move_' ~ move.way)|trans({}, 'PicossSonataExtraAdminBundle') %}
 
-    <a class="btn btn-small" href="{{ admin.generateObjectUrl('move', object, {'position': move.way}) }}" title="{{ label }}">
+    <a class="btn btn-sm btn-default" href="{{ admin.generateObjectUrl('move', object, {'position': move.way}) }}" title="{{ label }}">
         <i class="glyphicon {{ move.icon }}"></i>
         {% if actions.hide_label is defined and actions.hide_label == false %}{{ label }}{% endif %}
     </a>
