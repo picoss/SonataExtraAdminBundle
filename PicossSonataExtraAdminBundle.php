@@ -18,7 +18,6 @@ class PicossSonataExtraAdminBundle extends Bundle
     {
         parent::build($container);
         $container->addCompilerPass(new SonataTemplatesPass());
-        $container->addCompilerPass(new FormPass());
         $container->addCompilerPass(new AddAuditEntityCompilerPass());
         $container->addCompilerPass(new AddTrashEntityCompilerPass());
     }
