@@ -14,9 +14,12 @@ class ExtraAdminController extends CRUDController
      * @param integer $id
      * @param string $position
      */
-    public function moveAction($id, $position)
+    public function moveAction($id, $childId = null, $position)
     {
-        $object = $this->admin->getObject($id);
+
+        $objectId = $childId !== null ? $childId : $id;
+
+        $object = $this->admin->getObject($objectId);
 
         $sortableHandler = $this->get('picoss.sonataextraadmin.handler.sortable');
         $lastPosition = $sortableHandler->getLastPosition($object);
