@@ -36,7 +36,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Picoss\DemoBundle\PicossDemoBundle(),
+        new Picoss\SonataExtraAdminBundle\PicossSonataExtraAdminBundle(),
     );
     // ...
 }
