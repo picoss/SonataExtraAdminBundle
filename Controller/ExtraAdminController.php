@@ -11,12 +11,12 @@ class ExtraAdminController extends CRUDController
     /**
      * Move element
      *
-     * @param integer $id
-     * @param string $position
+     * @param integer      $id
+     * @param integer|null $childId
+     * @param string       $position
      */
     public function moveAction($id, $childId = null, $position)
     {
-
         $objectId = $childId !== null ? $childId : $id;
 
         $object = $this->admin->getObject($objectId);
@@ -166,5 +166,4 @@ class ExtraAdminController extends CRUDController
             'csrf_token' => $this->getCsrfToken('sonata.untrash')
         ));
     }
-
 }
