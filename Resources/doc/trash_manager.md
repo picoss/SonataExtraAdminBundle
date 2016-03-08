@@ -59,5 +59,5 @@ doctrine:
             enabled: true
           softdeleteabletrash:
             class: Picoss\SonataExtraAdminBundle\Filter\SoftDeleteableTrashFilter
-            enabled: false
+            enabled: true
 ```
