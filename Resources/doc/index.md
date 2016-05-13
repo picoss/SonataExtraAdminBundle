@@ -19,7 +19,7 @@ Add on composer.json (see http://getcomposer.org/)
 Now tell composer to download the bundle by running the command:
 
 ``` bash
-$ php composer.phar update picoss/sonata-extra-admin-bundle
+$ php composer.phar require picoss/sonata-extra-admin-bundle
 ```
 
 Composer will install the bundle to your project's `vendor/picoss` directory.
