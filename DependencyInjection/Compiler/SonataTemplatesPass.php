@@ -21,8 +21,8 @@ class SonataTemplatesPass implements CompilerPassInterface
         $container->setParameter('sonata_doctrine_orm_admin.templates', array_merge_recursive($extraTemplates, $doctrineTemplates));
 
         // define the templates
-        $container->getDefinition('sonata.admin.builder.orm_list')
-            ->replaceArgument(1, $templates['types']['list']);
+//        $container->getDefinition('sonata.admin.builder.orm_list')
+//            ->replaceArgument(1, $templates['types']['list']);
 
         $container->getDefinition('sonata.admin.builder.orm_show')
             ->replaceArgument(1, $templates['types']['show']);
@@ -36,7 +36,7 @@ class SonataTemplatesPass implements CompilerPassInterface
                 $definition->addMethodCall('setTemplate', array('trash', $extraTemplates['trash']));
                 $definition->addMethodCall('setTemplate', array('untrash', $extraTemplates['untrash']));
                 $definition->addMethodCall('setTemplate', array('inner_trash_list_row', $extraTemplates['inner_trash_list_row']));
-                $definition->addMethodCall('setTemplate', array('list', $extraTemplates['list']));
+//                $definition->addMethodCall('setTemplate', array('list', $extraTemplates['list']));
             }
         }
     }

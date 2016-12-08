@@ -120,20 +120,19 @@ class ExtraAdminController extends CRUDController
         ));
     }
 
-    public function untrashAction($id)
+    public function untrashAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $em->getFilters()->disable('softdeleteable');
         $em->getFilters()->enable('softdeleteabletrash');
 
-        $id     = $this->get('request')->get($this->admin->getIdParameter());
+        $id     = $request->get($this->admin->getIdParameter());
         $object = $this->admin->getObject($id);
 
         if (!$object) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
             // check the csrf token
             $this->validateCsrfToken('sonata.untrash');

@@ -1,51 +1,73 @@
 {% extends 'SonataAdminBundle:CRUD:base_history.html.twig' %}
 
 {% block content %}
-    <div class="col-md-5">
-        <table class="table" id="revisions">
-            <thead>
-            <tr>
-                <th>{{ "td_revision"|trans({}, 'SonataAdminBundle') }}</th>
-                <th>{{ "td_timestamp"|trans({}, 'SonataAdminBundle') }}</th>
-                <th>{{ "td_username"|trans({}, 'SonataAdminBundle') }}</th>
-                <th>{{ "td_action"|trans({}, 'SonataAdminBundle') }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for revision in revisions %}
-                <tr>
-                    <td>{{ revision.version}}</td>
-                    <td>{% include admin.getTemplate('history_revision_timestamp') %}</td>
-                    <td>{{ revision.username}}</td>
-                    <td>
-                        <a href="{{ admin.generateObjectUrl('history_view_revision', object, {'revision': revision.version }) }}" class="btn btn-small btn-info revision-link" data-loading-text="<i class='fa fa-refresh fa-spin'></i> {{ "label_view_revision"|trans({}, 'SonataAdminBundle') }}" rel="{{ revision.version }}">
-                            <i class="fa fa-search-plus"></i> {{ "label_view_revision"|trans({}, 'SonataAdminBundle') }}
-                        </a>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="box box-primary">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table" id="revisions">
+                        <thead>
+                        <tr>
+                            <th>{{ 'td_revision'|trans({}, 'SonataAdminBundle') }}</th>
+                            <th>{{ 'td_timestamp'|trans({}, 'SonataAdminBundle') }}</th>
+                            <th>{{ 'td_username'|trans({}, 'SonataAdminBundle') }}</th>
+                            <th>{{ 'td_compare'|trans({}, 'SonataAdminBundle') }}</th>
+                            <th>{{ 'td_action'|trans({}, 'SonataAdminBundle') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for revision in revisions %}
+                            <tr class="{% if (currentRevision != false and revision.version == currentRevision.version) %}current-revision{% endif %}">
+                                <td>{{ revision.version }}</td>
+                                <td>{% include admin.getTemplate('history_revision_timestamp') %}</td>
+                                <td>{{ revision.username|default('label_unknown_user'|trans({}, 'SonataAdminBundle')) }}</td>
+                                <td>
+                                    {% if (currentRevision == false or revision.version == currentRevision.version) %}
+                                        /
+                                    {% else %}
+                                        <a href="{{ admin.generateObjectUrl('history_compare_revisions', object, {'base_revision': currentRevision.version, 'compare_revision': revision.version }) }}" class="revision-compare-link" rel="{{ revision.version }}">{{ 'label_compare_revision'|trans({}, 'SonataAdminBundle') }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ admin.generateObjectUrl('history_view_revision', object, {'revision': revision.version }) }}" class="btn btn-small btn-info revision-link" data-loading-text="<i class='fa fa-refresh fa-spin'></i> {{ "label_view_revision"|trans({}, 'SonataAdminBundle') }}" rel="{{ revision.version }}">
+                                        <i class="fa fa-search-plus"></i> {{ "label_view_revision"|trans({}, 'SonataAdminBundle') }}
+                                    </a>
 
-                        <a href="{{ admin.generateObjectUrl('history_revert', object, {'revision': revision.version }) }}" class="btn btn-small btn-success" rel="{{ revision.version }}">
-                            <i class="fa fa-random"></i> {{ "label_revert_revision"|trans({}, 'PicossSonataExtraAdminBundle') }}
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div id="revision-detail" class="col-md-7 revision-detail">
+                                    <a href="{{ admin.generateObjectUrl('history_revert', object, {'revision': revision.version }) }}" class="btn btn-small btn-success" rel="{{ revision.version }}">
+                                        <i class="fa fa-random"></i> {{ "label_revert_revision"|trans({}, 'PicossSonataExtraAdminBundle') }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="revision-detail" class="col-md-7 revision-detail">
 
+        </div>
     </div>
 
     <script>
         jQuery(document).ready(function() {
-            jQuery('a.revision-link').bind('click', function(event) {
+            jQuery('a.revision-link, a.revision-compare-link').bind('click', function(event) {
                 event.stopPropagation();
                 event.preventDefault();
 
                 var btn = jQuery(this);
                 btn.button('loading');
 
-                jQuery('table#revisions tbody tr').removeClass('current');
-                jQuery(this).parent('').removeClass('current');
+                action = jQuery(this).hasClass('revision-link')
+                        ? 'show'
+                        : 'compare';
+
+                jQuery('#revision-detail').html('');
+
+                if(action == 'show') {
+                    jQuery('table#revisions tbody tr').removeClass('current');
+                    jQuery(this).parent('').removeClass('current');
+                }
 
                 jQuery.ajax({
                     url: jQuery(this).attr('href'),

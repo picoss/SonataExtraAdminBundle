@@ -46,7 +46,7 @@ class AuditReader implements AuditReaderInterface
             $repo->revert($object, $revision);
         }
 
-        return $object;
+        return clone $object;
     }
 
     /**
@@ -87,6 +87,11 @@ class AuditReader implements AuditReaderInterface
         $repo->revert($object, $revision);
         $this->em->persist($object);
         $this->em->flush();
+    }
+
+    public function diff($className, $id, $oldRevision, $newRevision)
+    {
+        // TODO: Implement diff() method.
     }
 
 }
