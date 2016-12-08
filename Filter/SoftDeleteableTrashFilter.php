@@ -29,7 +29,9 @@ class SoftDeleteableTrashFilter extends SQLFilter
 
         $conn = $this->getEntityManager()->getConnection();
         $platform = $conn->getDatabasePlatform();
-        $column = $targetEntity->getQuotedColumnName($config['fieldName'], $platform);
+        $quoteStrategy = $this->getEntityManager()->getConfiguration()->getQuoteStrategy();
+
+        $column = $quoteStrategy->getColumnName($config['fieldName'], $targetEntity, $platform);
 
         $addCondSql = $platform->getIsNotNullExpression($targetTableAlias.'.'.$column);
         if (isset($config['timeAware']) && $config['timeAware']) {
