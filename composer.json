@@ -25,7 +25,6 @@
             "Picoss\\SonataExtraAdminBundle\\": ""
         }
     },
-    "target-dir": "Picoss/SonataExtraAdminBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "4.x-dev"
