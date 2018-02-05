@@ -41,7 +41,6 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('untrash')->defaultValue('@PicossSonataExtraAdmin/CRUD/untrash.html.twig')->cannotBeEmpty()->end()
                         ->scalarNode('inner_trash_list_row')->defaultValue('@PicossSonataExtraAdmin/CRUD/list_trash_inner_row.html.twig')->cannotBeEmpty()->end()
                         ->scalarNode('button_trash')->defaultValue('@PicossSonataExtraAdmin/Button/trash_button.html.twig')->cannotBeEmpty()->end()
-//                        ->scalarNode('list')->defaultValue('@PicossSonataExtraAdmin/CRUD/base_list.html.twig')->cannotBeEmpty()->end()
                         ->arrayNode('types')
                             ->children()
                                 ->arrayNode('list')

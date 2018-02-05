@@ -27,6 +27,10 @@ class AddTrashEntityCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        if (!$container->hasDefinition('doctrine.orm.entity_manager')) {
+            return;
+        }
+
         $trashedEntities = array();
         foreach ($container->findTaggedServiceIds('sonata.admin') as $id => $attributes) {
 
@@ -39,7 +43,6 @@ class AddTrashEntityCompilerPass implements CompilerPassInterface
             }
 
             $definition = $container->getDefinition($id);
-            $definition->addMethodCall('setRouteBuilder', array(new Reference('picoss.sonataextraadmin.route.entity')));
             $trashedEntities[] = $this->getModelName($container, $definition->getArgument(1));
         }
 

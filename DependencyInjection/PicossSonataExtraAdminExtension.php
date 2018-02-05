@@ -41,7 +41,15 @@ class PicossSonataExtraAdminExtension extends Extension
 
         $bundles = $container->getParameter('kernel.bundles');
         if (isset($bundles['SonataDoctrineORMAdminBundle'])) {
-            $loader->load('ORM/services.xml');
+            $loader->load('ORM/sortable.xml');
+
+            if ($container->hasDefinition('stof_doctrine_extensions.listener.loggable')) {
+                $loader->load('ORM/audit.xml');
+            }
+
+            if ($container->hasDefinition('stof_doctrine_extensions.listener.softdeleteable')) {
+                $loader->load('ORM/trash.xml');
+            }
         }
 
         $container->registerForAutoconfiguration(ExtraAdminController::class)

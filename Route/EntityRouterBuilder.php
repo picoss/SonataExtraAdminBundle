@@ -35,14 +35,32 @@ class EntityRouterBuilder extends PathInfoBuilder implements RouteBuilderInterfa
      */
     protected $trashManager;
 
-    /**
-     * @param AuditManagerInterface $manager
-     */
     public function __construct(AuditManagerInterface $manager, TrashManagerInterface $trashManager)
     {
-        $this->manager = $manager;
+        parent::__construct($manager);
+
         $this->trashManager = $trashManager;
     }
+
+//    /**
+//     * Set audit manager
+//     *
+//     * @param AuditManagerInterface $manager
+//     */
+//    public function setAuditManager(AuditManagerInterface $manager)
+//    {
+//        $this->manager = $manager;
+//    }
+//
+//    /**
+//     * Set trash manager
+//     *
+//     * @param TrashManagerInterface $trashManager
+//     */
+//    public function setTrashManager(TrashManagerInterface $trashManager)
+//    {
+//        $this->trashManager = $trashManager;
+//    }
 
     /**
      * @param AdminInterface $admin
@@ -52,11 +70,11 @@ class EntityRouterBuilder extends PathInfoBuilder implements RouteBuilderInterfa
     {
         parent::build($admin, $collection);
 
-        if ($this->manager->hasReader($admin->getClass())) {
+        if ($this->manager && $this->manager->hasReader($admin->getClass())) {
             $collection->add('history_revert', $admin->getRouterIdParameter() . '/history/{revision}/revert');
         }
 
-        if ($this->trashManager->hasReader($admin->getClass())) {
+        if ($this->trashManager && $this->trashManager->hasReader($admin->getClass())) {
             $collection->add('trash', 'trash');
             $collection->add('untrash', $admin->getRouterIdParameter() . '/untrash');
         }
