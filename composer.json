@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Picoss\\SonataExtraAdminBundle": ""
+            "Picoss\\SonataExtraAdminBundle\\": ""
         }
     },
     "target-dir": "Picoss/SonataExtraAdminBundle",
