@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the YesWeHack BugBounty backend
  *
- * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * (c) Romain Honel <romain.honel@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,16 +13,30 @@ namespace Picoss\SonataExtraAdminBundle\Model;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Class TrashManager
+ *
+ * @author Romain Honel <romain.honel@gmail.com>
+ */
 class TrashManager implements TrashManagerInterface
 {
-    protected $classes = array();
+    /**
+     * @var array
+     */
+    protected $classes = [];
 
-    protected $readers = array();
+    /**
+     * @var array
+     */
+    protected $readers = [];
 
+    /**
+     * @var ContainerInterface
+     */
     protected $container;
 
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
     {

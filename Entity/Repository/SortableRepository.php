@@ -1,13 +1,34 @@
 <?php
 
+/*
+ * This file is part of the YesWeHack BugBounty backend
+ *
+ * (c) Romain Honel <romain.honel@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Picoss\SonataExtraAdminBundle\Entity\Repository;
 
 use Gedmo\Sortable\Entity\Repository\SortableRepository as BaseSortableRepository;
 
+/**
+ * Class SortableRepository
+ *
+ * @author Romain Honel <romain.honel@gmail.com>
+ */
 class SortableRepository extends BaseSortableRepository
 {
-
-    public function getMaxPosition($object = null) {
+    /**
+     * Get max position
+     *
+     * @param null $object
+     *
+     * @return mixed
+     */
+    public function getMaxPosition($object = null)
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb
             ->select('MAX(n.' . $this->config['position'] . ')')
@@ -31,7 +52,7 @@ class SortableRepository extends BaseSortableRepository
         $query = $qb->getQuery();
         $query->useQueryCache(false);
         $query->useResultCache(false);
+
         return $query->getSingleScalarResult();
     }
-
 }

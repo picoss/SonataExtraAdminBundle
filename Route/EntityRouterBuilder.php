@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the YesWeHack BugBounty backend
+ *
+ * (c) Romain Honel <romain.honel@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Picoss\SonataExtraAdminBundle\Route;
 
 use Picoss\SonataExtraAdminBundle\Model\TrashManagerInterface;
@@ -9,24 +18,35 @@ use Sonata\AdminBundle\Builder\RouteBuilderInterface;
 use Sonata\AdminBundle\Route\PathInfoBuilder;
 use Sonata\AdminBundle\Route\RouteCollection;
 
+/**
+ * Class EntityRouterBuilder
+ *
+ * @author Romain Honel <romain.honel@gmail.com>
+ */
 class EntityRouterBuilder extends PathInfoBuilder implements RouteBuilderInterface
 {
-
+    /**
+     * @var AuditManagerInterface
+     */
     protected $manager;
 
+    /**
+     * @var TrashManagerInterface
+     */
     protected $trashManager;
 
     /**
-     * @param \Sonata\AdminBundle\Model\AuditManagerInterface $manager
+     * @param AuditManagerInterface $manager
      */
     public function __construct(AuditManagerInterface $manager, TrashManagerInterface $trashManager)
     {
         $this->manager = $manager;
         $this->trashManager = $trashManager;
     }
+
     /**
-     * @param \Sonata\AdminBundle\Admin\AdminInterface $admin
-     * @param \Sonata\AdminBundle\Route\RouteCollection $collection
+     * @param AdminInterface $admin
+     * @param RouteCollection $collection
      */
     public function build(AdminInterface $admin, RouteCollection $collection)
     {

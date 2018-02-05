@@ -1,17 +1,26 @@
 <?php
 
+/*
+ * This file is part of the YesWeHack BugBounty backend
+ *
+ * (c) Romain Honel <romain.honel@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Picoss\SonataExtraAdminBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Processor;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Picoss\SonataExtraAdminBundle\Controller\ExtraAdminController;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * This is the class that loads and manages your bundle configuration
+ * Class PicossSonataExtraAdminExtension
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ * @author Romain Honel <romain.honel@gmail.com>
  */
 class PicossSonataExtraAdminExtension extends Extension
 {
@@ -27,8 +36,16 @@ class PicossSonataExtraAdminExtension extends Extension
 
         $container->setParameter('picoss_sonata_extra_admin.templates', $config['templates']);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
+
+        $bundles = $container->getParameter('kernel.bundles');
+        if (isset($bundles['SonataDoctrineORMAdminBundle'])) {
+            $loader->load('ORM/services.xml');
+        }
+
+        $container->registerForAutoconfiguration(ExtraAdminController::class)
+            ->addTag('controller.service_arguments');
     }
 
     protected function fixTemplatesConfiguration(array $configs)
@@ -37,18 +54,18 @@ class PicossSonataExtraAdminExtension extends Extension
             'templates' => array(
                 'types' => array(
                     'list' => array(
-                        'image'         => 'PicossSonataExtraAdminBundle:CRUD:list_image.html.twig',
-                        'html_template' => 'PicossSonataExtraAdminBundle:CRUD:list_html_template.html.twig',
-                        'progress_bar'  => 'PicossSonataExtraAdminBundle:CRUD:list_progress_bar.html.twig',
-                        'label'         => 'PicossSonataExtraAdminBundle:CRUD:list_label.html.twig',
-                        'badge'         => 'PicossSonataExtraAdminBundle:CRUD:list_badge.html.twig',
+                        'image' => '@PicossSonataExtraAdmin/CRUD/list_image.html.twig',
+                        'string_template' => '@PicossSonataExtraAdmin/CRUD/list_string_template.html.twig',
+                        'progress_bar' => '@PicossSonataExtraAdmin/CRUD/list_progress_bar.html.twig',
+                        'label' => '@PicossSonataExtraAdmin/CRUD/list_label.html.twig',
+                        'badge' => '@PicossSonataExtraAdmin/CRUD/list_badge.html.twig',
                     ),
                     'show' => array(
-                        'image'         => 'PicossSonataExtraAdminBundle:CRUD:show_image.html.twig',
-                        'html_template' => 'PicossSonataExtraAdminBundle:CRUD:show_html_template.html.twig',
-                        'progress_bar'  => 'PicossSonataExtraAdminBundle:CRUD:show_progress_bar.html.twig',
-                        'label'         => 'PicossSonataExtraAdminBundle:CRUD:show_label.html.twig',
-                        'badge'         => 'PicossSonataExtraAdminBundle:CRUD:show_badge.html.twig',
+                        'image' => '@PicossSonataExtraAdmin/CRUD/show_image.html.twig',
+                        'string_template' => '@PicossSonataExtraAdmin/CRUD/show_string_template.html.twig',
+                        'progress_bar' => '@PicossSonataExtraAdmin/CRUD/show_progress_bar.html.twig',
+                        'label' => '@PicossSonataExtraAdmin/CRUD/show_label.html.twig',
+                        'badge' => '@PicossSonataExtraAdmin/CRUD/show_badge.html.twig',
                     )
                 )
             )

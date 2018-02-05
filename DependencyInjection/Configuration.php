@@ -1,14 +1,23 @@
 <?php
 
+/*
+ * This file is part of the YesWeHack BugBounty backend
+ *
+ * (c) Romain Honel <romain.honel@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Picoss\SonataExtraAdminBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This is the class that validates and merges configuration from your app/config files
+ * Class Configuration
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
+ * @author Romain Honel <romain.honel@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {
@@ -25,12 +34,14 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('templates')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('history')->defaultValue('PicossSonataExtraAdminBundle:CRUD:history.html.twig')->cannotBeEmpty()->end()
-                        ->scalarNode('history_revert')->defaultValue('PicossSonataExtraAdminBundle:CRUD:history_revert.html.twig')->cannotBeEmpty()->end()
-                        ->scalarNode('history_revision_timestamp')->defaultValue('PicossSonataExtraAdminBundle:CRUD:history_revision_timestamp.html.twig')->cannotBeEmpty()->end()
-                        ->scalarNode('trash')->defaultValue('PicossSonataExtraAdminBundle:CRUD:trash.html.twig')->cannotBeEmpty()->end()
-                        ->scalarNode('untrash')->defaultValue('PicossSonataExtraAdminBundle:CRUD:untrash.html.twig')->cannotBeEmpty()->end()
-                        ->scalarNode('inner_trash_list_row')->defaultValue('PicossSonataExtraAdminBundle:CRUD:list_trash_inner_row.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('history')->defaultValue('@PicossSonataExtraAdmin/CRUD/history.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('history_revert')->defaultValue('@PicossSonataExtraAdmin/CRUD/history_revert.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('history_revision_timestamp')->defaultValue('@PicossSonataExtraAdmin/CRUD/history_revision_timestamp.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('trash')->defaultValue('@PicossSonataExtraAdmin/CRUD/trash.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('untrash')->defaultValue('@PicossSonataExtraAdmin/CRUD/untrash.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('inner_trash_list_row')->defaultValue('@PicossSonataExtraAdmin/CRUD/list_trash_inner_row.html.twig')->cannotBeEmpty()->end()
+                        ->scalarNode('button_trash')->defaultValue('@PicossSonataExtraAdmin/Button/trash_button.html.twig')->cannotBeEmpty()->end()
+//                        ->scalarNode('list')->defaultValue('@PicossSonataExtraAdmin/CRUD/base_list.html.twig')->cannotBeEmpty()->end()
                         ->arrayNode('types')
                             ->children()
                                 ->arrayNode('list')

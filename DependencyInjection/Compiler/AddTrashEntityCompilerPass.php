@@ -1,12 +1,25 @@
 <?php
 
+/*
+ * This file is part of the YesWeHack BugBounty backend
+ *
+ * (c) Romain Honel <romain.honel@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Picoss\SonataExtraAdminBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * Class AddTrashEntityCompilerPass
+ *
+ * @author Romain Honel <romain.honel@gmail.com>
+ */
 class AddTrashEntityCompilerPass implements CompilerPassInterface
 {
     /**
@@ -37,7 +50,7 @@ class AddTrashEntityCompilerPass implements CompilerPassInterface
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param string                                                  $name
+     * @param string $name
      *
      * @return string
      */

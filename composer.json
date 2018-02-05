@@ -2,8 +2,7 @@
     "name": "picoss/sonata-extra-admin-bundle",
     "type": "symfony-bundle",
     "description": "Sonata Extra admin features",
-    "keywords": ["admin","sonata"],
-    "homepage": "http://github.com/picoss/SonataExtraAdminBundle",
+    "keywords": ["admin","sonata","symfony"],
     "license": "MIT",
     "authors": [
         {
@@ -12,10 +11,8 @@
         }
     ],
     "require": {
-        "php": "^5.3 || ^7.0",
-        "sonata-project/admin-bundle": "^3.1",
-        "sonata-project/core-bundle": "^3.0",
-        "symfony/framework-bundle": "^2.2 || ^3.0"
+        "php": "^5.6 || ^7.0",
+        "sonata-project/admin-bundle": "^3.1"
     },
     "require-dev": {
         "gedmo/doctrine-extensions": ">=2.2"
@@ -24,12 +21,14 @@
         "stof/doctrine-extensions-bundle": "1.1.*@dev"
     },
     "autoload": {
-        "psr-0": { "Picoss\\SonataExtraAdminBundle": "" }
+        "psr-4": {
+            "Picoss\\SonataExtraAdminBundle": ""
+        }
     },
     "target-dir": "Picoss/SonataExtraAdminBundle",
     "extra": {
         "branch-alias": {
-            "dev-master": "3.x-dev"
+            "dev-master": "4.x-dev"
         }
     }
 }

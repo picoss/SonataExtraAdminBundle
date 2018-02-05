@@ -1,26 +1,43 @@
 <?php
 
+/*
+ * This file is part of the YesWeHack BugBounty backend
+ *
+ * (c) Romain Honel <romain.honel@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Picoss\SonataExtraAdminBundle\Handler;
 
 use Doctrine\ORM\EntityManager;
 
+/**
+ * Class SortableHandler
+ *
+ * @author Romain Honel <romain.honel@gmail.com>
+ */
 class SortableHandler
 {
-
     /**
      * Position constants
      */
-    const MOVE_TOP      = 'top';
-    const MOVE_UP       = 'up';
-    const MOVE_DOWN     = 'down';
-    const MOVE_BOTTOM   = 'bottom';
+    const MOVE_TOP = 'top';
+    const MOVE_UP = 'up';
+    const MOVE_DOWN = 'down';
+    const MOVE_BOTTOM = 'bottom';
 
     /**
-     * Entity manager
      * @var EntityManager
      */
     private $em;
 
+    /**
+     * SortableHandler constructor.
+     *
+     * @param EntityManager $em
+     */
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
@@ -29,9 +46,10 @@ class SortableHandler
     /**
      * Get new position
      *
-     * @param $object
-     * @param $position
-     * @param $lastPosition
+     * @param mixed $object
+     * @param int   $position
+     * @param int   $lastPosition
+     *
      * @return int
      */
     public function getPosition($object, $position, $lastPosition)
@@ -61,21 +79,21 @@ class SortableHandler
                 }
                 break;
         }
+
         return is_numeric($position) ? $position : $object->getPosition();
     }
 
     /**
      * Get entity last position
      *
-     * @param $entity
+     * @param mixed $object
+     *
      * @return int
      */
     public function getLastPosition($object)
     {
         $repository = $this->em->getRepository(get_class($object));
-        return $repository->getMaxPosition($object);
 
-//        $query = $this->em->createQuery('SELECT MAX(e.position) FROM ' . $object . ' e');
-//        return $query->getSingleScalarResult();
+        return $repository->getMaxPosition($object);
     }
 }

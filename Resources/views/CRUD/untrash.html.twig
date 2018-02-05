@@ -1,10 +1,21 @@
+{#
+
+This file is part of the YesWeHack BugBounty backend
+
+(c) Romain Honel <romain.honel@gmail.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
 {% extends base_template %}
 
-{% block actions %}
-    <li>{% include 'SonataAdminBundle:Button:list_button.html.twig' %}</li>
-{% endblock %}
+{%- block actions -%}
+    {% include '@SonataAdmin/CRUD/action_buttons.html.twig' %}
+{%- endblock -%}
 
-{% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}{% endblock %}
+{% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}{% endblock %}
 
 {% block content %}
     <div class="sonata-ba-delete">
@@ -21,7 +32,7 @@
                     <input type="hidden" name="_sonata_csrf_token" value="{{ csrf_token }}">
 
                     <button type="submit" class="btn btn-danger"><i class="fa fa-reply fa-lg"></i> {{ 'btn_restore'|trans({}, 'PicossSonataExtraAdminBundle') }}</button>
-                    {% if admin.hasRoute('delete') and admin.isGranted('DELETE', object) %}
+                    {% if admin.hasRoute('trash') and admin.hasAccess('edit', object) %}
                         {{ 'restore_or'|trans({}, 'PicossSonataExtraAdminBundle') }}
 
                         <a class="btn btn-success" href="{{ admin.generateUrl('trash') }}">

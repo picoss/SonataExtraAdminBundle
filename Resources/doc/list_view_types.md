@@ -7,7 +7,7 @@ PicossSonataExtraAdminBundle provides new list view types:
 - Badge,
 - Label,
 - Progress Bar,
-- HTML Template.
+- String Template.
 
 ## Image type
 
@@ -35,11 +35,11 @@ protected function configureListFields(ListMapper $listMapper)
 {
     $listMapper
         ...
-        ->add('picture', 'image', array(
+        ->add('picture', 'image', [
             'prefix' => '/bundles/acme/images/', // Image url prefix, default to null
             'width' => 75, // Image width, default to 50px,
             'height' => 75, // Image height, default to 50px,
-        ))
+        ])
     ;
 }
 
@@ -142,9 +142,9 @@ protected function configureListFields(ListMapper $listMapper)
 
 ```
 
-## HTML Template type
+## String Template type
 
-To format the field value using html, use `html_template` type.
+To format the field value using html, use `string_template` type.
 
 #### Default usage
 
@@ -154,8 +154,8 @@ protected function configureListFields(ListMapper $listMapper)
 {
     $listMapper
         ...
-        ->add('name', 'html_template', array(
-            'html' => '<span class="pull-right">{{ value }}</span>'
+        ->add('name', 'string_template', array(
+            'string_template' => '<span class="pull-right">{{ value }}</span>'
         ))
     ;
 }
@@ -172,8 +172,8 @@ protected function configureListFields(ListMapper $listMapper)
 {
     $listMapper
             ...
-            ->add('fullname', 'html_template', array(
-                'html' => '<span class="pull-right">{{ object.firstname }} {{ object.lastname }}</span>'
+            ->add('fullname', 'string_template', array(
+                'string_template' => '<span class="pull-right">{{ object.firstname }} {{ object.lastname }}</span>'
             ))
         ;
 }
@@ -181,5 +181,5 @@ protected function configureListFields(ListMapper $listMapper)
 ```
 
 **Note:**
-`html_template` type use `template_from_string()` twig function.
+`string_template` type use `template_from_string()` twig function.
 For more informations [see twig documentation](http://twig.sensiolabs.org/doc/functions/template_from_string.html)

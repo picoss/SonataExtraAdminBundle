@@ -12,7 +12,8 @@ file that was distributed with this source code.
 {% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
 
 {% block field%}
-    {% spaceless %}
-        <span class="badge">{{ value }}</span>
-    {% endspaceless %}
+{% spaceless %}
+    {% set template = field_description.options.string_template is defined ? field_description.options.string_template : '{% if field_description.options.safe %}{{ value|raw }}{% else %}{{ value|nl2br }}{% endif %}' %}
+    {%  include template_from_string(template) %}
+{% endspaceless %}
 {% endblock %}

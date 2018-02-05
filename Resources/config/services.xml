@@ -3,39 +3,9 @@
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-    <parameters>
-        <parameter key="picoss.sonataextraadmin.handler.sortable.class">Picoss\SonataExtraAdminBundle\Handler\SortableHandler</parameter>
-    </parameters>
-
     <services>
-        <service id="picoss.sonataextraadmin.handler.sortable" class="%picoss.sonataextraadmin.handler.sortable.class%">
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-        </service>
-
         <service id="picoss.sonataextraadmin.twig.extension.stringloader" class="Twig_Extension_StringLoader">
             <tag name="twig.extension"/>
-        </service>
-
-        <service id="picoss.sonataextraadmin.route.entity"
-                 class="Picoss\SonataExtraAdminBundle\Route\EntityRouterBuilder">
-            <argument type="service" id="sonata.admin.audit.manager"/>
-            <argument type="service" id="picoss.sonataextraadmin.trash.manager"/>
-        </service>
-
-        <service id="picoss.sonata.extra.admin.audit.orm.reader" class="Picoss\SonataExtraAdminBundle\Model\AuditReader">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="stof_doctrine_extensions.listener.loggable" />
-        </service>
-
-        <!-- trash manager -->
-        <service id="picoss.sonataextraadmin.trash.manager" class="Picoss\SonataExtraAdminBundle\Model\TrashManager">
-            <argument type="service" id="service_container" />
-        </service>
-
-        <service id="picoss.sonata.extra.admin.trash.orm.reader" class="Picoss\SonataExtraAdminBundle\Model\TrashReader">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="stof_doctrine_extensions.listener.softdeleteable" />
         </service>
     </services>
 </container>

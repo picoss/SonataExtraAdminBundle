@@ -7,7 +7,7 @@ PicossSonataExtraAdminBundle provides new show view types:
 - Badge,
 - Label,
 - Progress Bar,
-- HTML Template.
+- String Template.
 
 ## Image type
 
@@ -17,9 +17,9 @@ To display an image, simply use `image` type.
 
 ``` php
 
-protected function configureListFields(ListMapper $listMapper)
+protected function configureShowFields(ShowMapper $showMapper)
 {
-    $listMapper
+    $showMapper
         ...
         ->add('picture', 'image')
     ;
@@ -31,15 +31,15 @@ protected function configureListFields(ListMapper $listMapper)
 
 ``` php
 
-protected function configureListFields(ListMapper $listMapper)
+protected function configureShowFields(ShowMapper $showMapper)
 {
-    $listMapper
+    $showMapper
         ...
-        ->add('picture', 'image', array(
+        ->add('picture', 'image', [
             'prefix' => '/bundles/acme/images/', // Image url prefix, default to null
             'width' => 75, // Image width, default to 50px,
             'height' => 75, // Image height, default to 50px,
-        ))
+        ])
     ;
 }
 
@@ -54,9 +54,9 @@ For more informations see [Bootstrap Badges](http://getbootstrap.com/components/
 
 ``` php
 
-protected function configureListFields(ListMapper $listMapper)
+protected function configureShowFields(ShowMapper $showMapper)
 {
-    $listMapper
+    $showMapper
         ...
         ->add('name', 'badge')
     ;
@@ -73,9 +73,9 @@ For more informations see [Bootstrap Labels](http://getbootstrap.com/components/
 
 ``` php
 
-protected function configureListFields(ListMapper $listMapper)
+protected function configureShowFields(ShowMapper $showMapper)
 {
-    $listMapper
+    $showMapper
         ...
         ->add('name', 'label')
     ;
@@ -87,9 +87,9 @@ protected function configureListFields(ListMapper $listMapper)
 
 ``` php
 
-protected function configureListFields(ListMapper $listMapper)
+protected function configureShowFields(ShowMapper $showMapper)
 {
-    $listMapper
+    $showMapper
         ...
         ->add('name', 'label', array(
             /* Label appearance, could be one of the following:
@@ -111,9 +111,9 @@ For more informations see [Bootstrap Progress bars](http://getbootstrap.com/comp
 
 ``` php
 
-protected function configureListFields(ListMapper $listMapper)
+protected function configureShowFields(ShowMapper $showMapper)
 {
-    $listMapper
+    $showMapper
         ...
         ->add('level', 'progress_bar')
     ;
@@ -125,9 +125,9 @@ protected function configureListFields(ListMapper $listMapper)
 
 ``` php
 
-protected function configureListFields(ListMapper $listMapper)
+protected function configureShowFields(ShowMapper $showMapper)
 {
-    $listMapper
+    $showMapper
         ...
         ->add('level', 'progress_bar', array(
             /* Progress bar appearance, could be one of the following:
@@ -150,12 +150,12 @@ To format the field value using html, use `html_template` type.
 
 ``` php
 
-protected function configureListFields(ListMapper $listMapper)
+protected function configureShowFields(ShowMapper $showMapper)
 {
-    $listMapper
+    $showMapper
         ...
-        ->add('name', 'html_template', array(
-            'html' => '<span class="pull-right">{{ value }}</span>'
+        ->add('name', 'string_template', array(
+            'string_template' => '<span class="pull-right">{{ value }}</span>'
         ))
     ;
 }
@@ -168,12 +168,12 @@ You can also get the current object properties using `{{ object.property }}` in 
 
 ``` php
 
-protected function configureListFields(ListMapper $listMapper)
+protected function configureShowFields(ShowMapper $showMapper)
 {
-    $listMapper
+    $showMapper
             ...
-            ->add('fullname', 'html_template', array(
-                'html' => '<span class="pull-right">{{ object.firstname }} {{ object.lastname }}</span>'
+            ->add('fullname', 'string_template', array(
+                'string_template' => '<span class="pull-right">{{ object.firstname }} {{ object.lastname }}</span>'
             ))
         ;
 }
@@ -181,5 +181,5 @@ protected function configureListFields(ListMapper $listMapper)
 ```
 
 **Note:**
-`html_template` type use `template_from_string()` twig function.
+`string_template` type use `template_from_string()` twig function.
 For more informations [see twig documentation](http://twig.sensiolabs.org/doc/functions/template_from_string.html)

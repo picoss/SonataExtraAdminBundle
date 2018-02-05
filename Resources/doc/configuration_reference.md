@@ -4,28 +4,28 @@ PicossSonataExtraAdminBundle Configuration Reference
 All available configuration options are listed below with their default values.
 
 ``` yaml
-# app/config/config.yml
+# config/packages/picoss_sonata_extra_admin.yaml
 picoss_sonata_extra_admin:
   templates:
-    history:                    PicossSonataExtraAdminBundle:CRUD:history.html.twig
-    history_revert:             PicossSonataExtraAdminBundle:CRUD:history_revert.html.twig
-    history_revision_timestamp: PicossSonataExtraAdminBundle:CRUD:history_revision_timestamp.html.twig
-    trash:                      PicossSonataExtraAdminBundle:CRUD:trash.html.twig
-    untrash:                    PicossSonataExtraAdminBundle:CRUD:untrash.html.twig
-    inner_trash_list_row:       PicossSonataExtraAdminBundle:CRUD:list_trash_inner_row.html.twig
-    list:                       PicossSonataExtraAdminBundle:CRUD:base_list.html.twig
+    history:                    @PicossSonataExtraAdmin/CRUD/history.html.twig
+    history_revert:             @PicossSonataExtraAdmin/CRUD/history_revert.html.twig
+    history_revision_timestamp: @PicossSonataExtraAdmin/CRUD/history_revision_timestamp.html.twig
+    trash:                      @PicossSonataExtraAdmin/CRUD/trash.html.twig
+    untrash:                    @PicossSonataExtraAdmin/CRUD/untrash.html.twig
+    inner_trash_list_row:       @PicossSonataExtraAdmin/CRUD/list_trash_inner_row.html.twig
+    button_trash:               @PicossSonataExtraAdmin/Button/trash_button.html.twig
     types:
       list:
-        image:         PicossSonataExtraAdminBundle:CRUD:list_image.html.twig
-        badge:         PicossSonataExtraAdminBundle:CRUD:list_badge.html.twig
-        label:         PicossSonataExtraAdminBundle:CRUD:list_label.html.twig
-        progress_bar:  PicossSonataExtraAdminBundle:CRUD:list_progress_bar.html.twig
-        html_template: PicossSonataExtraAdminBundle:CRUD:list_html_template.html.twig
+        image:           @PicossSonataExtraAdmin/CRUD/list_image.html.twig
+        badge:           @PicossSonataExtraAdmin/CRUD/list_badge.html.twig
+        label:           @PicossSonataExtraAdmin/CRUD/list_label.html.twig
+        progress_bar:    @PicossSonataExtraAdmin/CRUD/list_progress_bar.html.twig
+        string_template: @PicossSonataExtraAdmin/CRUD/list_string_template.html.twig
       show:
-        image:         PicossSonataExtraAdminBundle:CRUD:show_image.html.twig
-        badge:         PicossSonataExtraAdminBundle:CRUD:show_badge.html.twig
-        label:         PicossSonataExtraAdminBundle:CRUD:show_label.html.twig
-        progress_bar:  PicossSonataExtraAdminBundle:CRUD:show_progress_bar.html.twig
-        html_template: PicossSonataExtraAdminBundle:CRUD:show_html_template.html.twig
+        image:           @PicossSonataExtraAdmin/CRUD/show_image.html.twig
+        badge:           @PicossSonataExtraAdmin/CRUD/show_badge.html.twig
+        label:           @PicossSonataExtraAdmin/CRUD/show_label.html.twig
+        progress_bar:    @PicossSonataExtraAdmin/CRUD/show_progress_bar.html.twig
+        string_template: @PicossSonataExtraAdmin/CRUD/show_string_template.html.twig
 
 ```

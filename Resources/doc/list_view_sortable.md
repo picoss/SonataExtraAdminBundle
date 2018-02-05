@@ -61,14 +61,11 @@ Update your entity admin class
 
 namespace Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class MyEntityAdmin extends Admin
+class MyEntityAdmin extends AbstractAdmin
 {
 
     protected $datagridValues = array(
@@ -83,7 +80,7 @@ class MyEntityAdmin extends Admin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('move', $this->getRouterIdParameter() . '/move/{position}');
+        $collection->add('move', $this->getRouterIdParameter().'/move/{position}');
     }
 
     /**
@@ -93,17 +90,17 @@ class MyEntityAdmin extends Admin
     {
         $listMapper
             ...
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                    'move' => array(
-                        'template' => 'PicossSonataExtraAdminBundle:CRUD:list__action_sort.html.twig',
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                    'move' => [
+                        'template' => '@PicossSonataExtraAdmin/CRUD/list__action_sort.html.twig',
                         'hide_label' => false, // Hide button text, default to true
-                    )
-                )
-            ))
+                    ],
+                ],
+            ])
         ;
     }
 }
@@ -149,10 +146,9 @@ Then update your admin service.
 
 **YAML**
 ``` yaml
-# Picoss/DemoBundle/Resources/config/admin.yml
+# config/services.yaml
 services:
-    picoss.demo.admin.my_entity:
-        class: Picoss\DemoBundle\Admin\MyEntityAdmin
+    Picoss\DemoBundle\Admin\MyEntityAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Demo", label: "Entity" }
         arguments:

@@ -31,10 +31,9 @@ Update your admin service to enable audit:
 
 **YAML**
 ``` yaml
-# Picoss/DemoBundle/Resources/config/admin.yml
+# config/services.yaml
 services:
-    picoss.demo.admin.my_entity:
-        class: Picoss\DemoBundle\Admin\MyEntityAdmin
+    Picoss\DemoBundle\Admin\MyEntityAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Demo", label: "Entity", audit: true }
         arguments:

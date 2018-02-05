@@ -13,6 +13,7 @@ file that was distributed with this source code.
 
 {% block field %}
     {% spaceless %}
-        <span class="badge">{{ value }}</span>
+        {% set template = field_description.options.string_template is defined ? field_description.options.string_template : '{{ value }}' %}
+        {% include template_from_string(template) %}
     {% endspaceless %}
 {% endblock %}

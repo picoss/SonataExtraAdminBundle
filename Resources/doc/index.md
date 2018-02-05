@@ -30,16 +30,13 @@ To start using this bundle, register it in the Kernel:
 
 ``` php
 <?php
-// app/AppKernel.php
 
-public function registerBundles()
-{
-    $bundles = array(
-        // ...
-        new Picoss\SonataExtraAdminBundle\PicossSonataExtraAdminBundle(),
-    );
-    // ...
-}
+// config/bundles.php
+
+return [
+    //...
+    Picoss\SonataExtraAdminBundle\PicossSonataExtraAdminBundle::class => ['all' => true],
+];
 ```
 
 ### Configure the bundle (optional)

@@ -17,8 +17,13 @@ class PicossSonataExtraAdminBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
+
         $container->addCompilerPass(new SonataTemplatesPass());
-        $container->addCompilerPass(new AddAuditEntityCompilerPass());
-        $container->addCompilerPass(new AddTrashEntityCompilerPass());
+
+        $bundles = $container->getParameter('kernel.bundles');
+        if (isset($bundles['SonataDoctrineORMAdminBundle'])) {
+            $container->addCompilerPass(new AddAuditEntityCompilerPass());
+            $container->addCompilerPass(new AddTrashEntityCompilerPass());
+        }
     }
 }

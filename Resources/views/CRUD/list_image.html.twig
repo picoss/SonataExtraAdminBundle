@@ -1,14 +1,24 @@
+{#
+
+This file is part of the YesWeHack BugBounty backend
+
+(c) Romain Honel <romain.honel@gmail.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
 {% extends admin.getTemplate('base_list_field') %}
 
-{% block field%}
-{% spaceless %}
-    {% set width = field_description.options.width is defined ? field_description.options.width : 50 %}
-    {% set height = field_description.options.height is defined ? field_description.options.height : 50 %}
-    {% if value %}
-        <img src="{% if field_description.options.prefix is defined %}{{ field_description.options.prefix }}{% endif %}{{ value }}" 
-            style="max-width:{{ width }}px; max-height:{{ height }}px;" />
-    {% else %}
-        <div class="no-image" style="width:{{ width }}px; height:{{ height }}px;"></div>
-    {% endif %}
-{% endspaceless %}
+{% block field %}
+    {% spaceless %}
+        {% set width = field_description.options.width is defined ? field_description.options.width : 50 %}
+        {% set height = field_description.options.height is defined ? field_description.options.height : 50 %}
+        {% if value %}
+            <img src="{% if field_description.options.prefix is defined %}{{ field_description.options.prefix }}{% endif %}{{ value }}" style="max-width:{{ width }}px; max-height:{{ height }}px;"/>
+        {% else %}
+            <div class="no-image" style="width:{{ width }}px; height:{{ height }}px;"></div>
+        {% endif %}
+    {% endspaceless %}
 {% endblock %}

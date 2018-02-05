@@ -1,17 +1,49 @@
 <?php
 
+/*
+ * This file is part of the YesWeHack BugBounty backend
+ *
+ * (c) Romain Honel <romain.honel@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Picoss\SonataExtraAdminBundle\Filter;
 
-use Doctrine\ORM\Mapping\ClassMetaData,
-    Doctrine\ORM\Query\Filter\SQLFilter,
-    Gedmo\SoftDeleteable\SoftDeleteableListener;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\ClassMetaData;
+use Doctrine\ORM\Query\Filter\SQLFilter;
+use Gedmo\SoftDeleteable\SoftDeleteableListener;
 
+/**
+ * Class SoftDeleteableTrashFilter
+ *
+ * @author Romain Honel <romain.honel@gmail.com>
+ */
 class SoftDeleteableTrashFilter extends SQLFilter
 {
+    /**
+     * @var SoftDeleteableListener
+     */
     protected $listener;
-    protected $entityManager;
-    protected $disabled = array();
 
+    /**
+     * @var EntityManagerInterface
+     */
+    protected $entityManager;
+
+    /**
+     * @var string[bool]
+     */
+    protected $disabled = [];
+
+    /**
+     * @param ClassMetadata $targetEntity
+     * @param string $targetTableAlias
+     *
+     * @return string
+     */
     public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias)
     {
         $class = $targetEntity->getName();
@@ -29,28 +61,38 @@ class SoftDeleteableTrashFilter extends SQLFilter
 
         $conn = $this->getEntityManager()->getConnection();
         $platform = $conn->getDatabasePlatform();
-        $quoteStrategy = $this->getEntityManager()->getConfiguration()->getQuoteStrategy();
+        $column = $targetEntity->getQuotedColumnName($config['fieldName'], $platform);
 
-        $column = $quoteStrategy->getColumnName($config['fieldName'], $targetEntity, $platform);
-
-        $addCondSql = $platform->getIsNotNullExpression($targetTableAlias.'.'.$column);
+        $addCondSql = $platform->getIsNotNullExpression($targetTableAlias . '.' . $column);
         if (isset($config['timeAware']) && $config['timeAware']) {
             $now = $conn->quote(date('Y-m-d H:i:s')); // should use UTC in database and PHP
             $addCondSql = "({$addCondSql} OR {$targetTableAlias}.{$column} > {$now})";
         }
+
         return $addCondSql;
     }
 
+    /**
+     * @param string $class
+     */
     public function disableForEntity($class)
     {
         $this->disabled[$class] = true;
     }
 
+    /**
+     * @param string $class
+     */
     public function enableForEntity($class)
     {
         $this->disabled[$class] = false;
     }
 
+    /**
+     * @return SoftDeleteableListener
+     *
+     * @throws \RuntimeException
+     */
     protected function getListener()
     {
         if ($this->listener === null) {
@@ -75,6 +117,11 @@ class SoftDeleteableTrashFilter extends SQLFilter
         return $this->listener;
     }
 
+    /**
+     * @return EntityManagerInterface
+     *
+     * @throws \ReflectionException
+     */
     protected function getEntityManager()
     {
         if ($this->entityManager === null) {
