@@ -12,7 +12,11 @@ file that was distributed with this source code.
 {% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
 
 {% block field %}
-    {% if value %}
-        <img src="{% if field_description.options.prefix is defined %}{{ field_description.options.prefix }}{% endif %}{{ value }}" />
-    {% endif %}
+        {% set width = field_description.options.width is defined ? field_description.options.width : 50 %}
+        {% set height = field_description.options.height is defined ? field_description.options.height : 50 %}
+        {% if value %}
+            <img src="{% if field_description.options.prefix is defined %}{{ field_description.options.prefix }}{% endif %}{{ value }}" style="max-width:{{ width }}px; max-height:{{ height }}px;"/>
+        {% else %}
+            <div class="no-image" style="width:{{ width }}px; height:{{ height }}px;"></div>
+        {% endif %}
 {% endblock %}
