@@ -1,4 +1,4 @@
-Audit Manager
+Trash Manager
 =============
 
 Trash manager for Gedmo soft deleteable entity.
